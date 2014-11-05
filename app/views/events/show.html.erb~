@@ -1,0 +1,22 @@
+
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @event.event %>
+</p>
+
+<p>
+  <strong>Evnt discr:</strong>
+  <%= @event.evnt_discr %>
+</p>
+
+<p>
+  <strong>Evt date:</strong>
+  <%= @event.evt_date %>
+</p>
+
+<% if signed_in? %>
+<%= f.submit "Attend", class: "btn btn-large" %>
+<% end %>

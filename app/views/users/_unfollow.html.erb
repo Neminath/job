@@ -1,0 +1,5 @@
+<%= form for(current user.relationships.find_by_userid(@user),
+html: { method: :delete }) do |f| %>
+<%= f.submit "Not Attend", class: "btn btn-large" %>
+<% end %>
+

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event: MyString
+  evnt_discr: MyString
+  evt_date: 2014-11-05 18:24:26
+
+two:
+  event: MyString
+  evnt_discr: MyString
+  evt_date: 2014-11-05 18:24:26
