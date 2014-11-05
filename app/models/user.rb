@@ -8,10 +8,27 @@ class User < ActiveRecord::Base
 	has_secure_password
 	validates :password, length: { minimum: 6 }
 
-        def User.new_remember_token
+	has_many :relationships, foreign_key: "eventid", dependent: :destroy
+	
+    def User.new_remember_token
 	  SecureRandom.urlsafe_base64
 	end
-	
+
+	def attend event
+		relationship.create!(:eventid => event.id)
+	end
+
+	def leave event
+		relationship.find(:eventid=> event.id).destroy
+	end	
+
+	def attended?
+		if relationship.find(:eventid=> event.id).nil?
+			false
+		else
+			true
+		end
+	end
 	def User.digest(token)
 	  Digest::SHA1.hexdigest(token.to_s)
 	end

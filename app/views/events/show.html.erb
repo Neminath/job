@@ -16,5 +16,10 @@
   <strong>Evt date:</strong>
   <%= @event.evt_date %>
 </p>
-
-
+<% if signed_in? %>
+	<% if current_user.attended? %>
+	<%= link_to "Attent", relationship_create_path %>
+	<%else %>
+		<%= link_to "Unattend", relationship_destroy_path(@event) %>
+	<%end %>
+<%end%>

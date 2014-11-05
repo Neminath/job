@@ -1,16 +1,14 @@
 Rails.application.routes.draw do
-  resources :events
-
-  get 'static_pages/home'
-  get 'events/index'
-  root 'events#index'
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 
+  root  'events#index'
   match '/signup', to: 'users#new',via: 'get'
   match '/signin', to: 'sessions#new',via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
 
+  resources :events
+  resources :relationships
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
