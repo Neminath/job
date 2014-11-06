@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   match '/signup', to: 'users#new',via: 'get'
   match '/signin', to: 'sessions#new',via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
-
+  match '/attend', to: 'users#attend', via: 'post'
+  match '/leave', to: 'users#leave', via: 'delete'
   resources :events
   resources :relationships
 

@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :signed_in_user, only: [:edit, :update]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :signed_in_user, only: [:edit, :update, :attend, :leave]
+  before_action :correct_user, only: [:edit, :update, :attend, :leave]
+  before_action :find_event , only:[:attend, :leave]
   #has_many :events, dependent: :destroy
 
   # GET /users
@@ -82,7 +83,27 @@ class UsersController < ApplicationController
     end
   end
 
+
+    def attend
+      ##@user = User.first
+      #@user.attend @event
+    
+      currect_user.attend @event
+      redirect_to event_path(@event)
+  end
+
+  def leave
+   # @user = User.first
+    #@user.leave @event
+    currect_user.leave @event
+    redirect_to event_path(@event)
+  end
+
   private
+    def find_event
+      @event = Event.find(params[:id])
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
@@ -90,7 +111,7 @@ class UsersController < ApplicationController
    
    def signed_in_user
      redirect_to signin_url, notice: "Please sign in." unless signed_in?
-  end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
@@ -99,8 +120,10 @@ class UsersController < ApplicationController
     end
 
    def correct_user
-  @user = User.find(params[:id])
-  redirect_to(root_url) unless current_user?(@user) 
+      @user = User.first
+      if @user.nil?
+        redirect_to(root_url) 
+      end
   end
 
 end

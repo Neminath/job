@@ -17,9 +17,33 @@
   <%= @event.evt_date %>
 </p>
 <% if signed_in? %>
-	<% if current_user.attended?(@event) %>
-	<%= link_to "Attent", relationship_create_path %>
+	<% if !@user.attended?(@event) %>
+	 <%= link_to "Attend", attend_path(:id => @event.id), :method =>"post" %>
 	<%else %>
-		<%= link_to "Unattend", relationship_destroy_path(@event) %>
+		<%= link_to "Unattend", leave_path(:id => @event.id) , :method =>"delete"%>
 	<%end %>
 <%end%>
+
+
+<h1>User list</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Atteding user</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.Name %></td>
+            <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+

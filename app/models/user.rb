@@ -6,37 +6,46 @@ class User < ActiveRecord::Base
 	format: { with: VALID_EMAIL_REGEX },
 	uniqueness: { case_sensitive: false }
 	has_secure_password
+	before_create :create_remember_token
 	validates :password, length: { minimum: 6 }
-    has_and_belongs_to_many :events , dependent: :destroy
-
+    has_and_belongs_to_many :events
     #has_many :event , dependent: :destroy
-    has_many :EventsUsersJoinTables , foreign_key: "user_id", dependent: :destroy
+    #has_many :EventsUsersJoinTables , foreign_key: "user_id", dependent: :destroy
 	#has_many :relationships, foreign_key: "user_id", dependent: :destroy
 	
     def User.new_remember_token
 	  SecureRandom.urlsafe_base64
 	end
 
+	def User.digest(token)
+	  Digest::SHA1.hexdigest(token.to_s)
+	end
+
 	def attend (event)
-		relationships.create!(:eventi_d => event.id)
+		 
+		#@user = User.first
+		#@user.events << event
+		current_user.events << event 
+		event.users<<current_user
 	end
 
 	def leave (event)
-		relationships.find(:event_id=> event.id).destroy
+		#@user = User.first
+		#event.users.destroy_all
+         event.current_user.destroy
 	end	
 
 	def attended?(event)
-		if relationships.find(:event_id=> event.id).nil?
+		#@user = User.first
+		if current_user.events.first.nil?
 			false
 		else
 			true
 		end
 	end
-	def User.digest(token)
-	  Digest::SHA1.hexdigest(token.to_s)
-	end
-   
-       private
+	
+  
+  	private
         def create_remember_token
          self.remember_token = User.digest(User.new_remember_token)
         end
