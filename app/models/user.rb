@@ -7,8 +7,11 @@ class User < ActiveRecord::Base
 	uniqueness: { case_sensitive: false }
 	has_secure_password
 	validates :password, length: { minimum: 6 }
-    has_many :event , dependent: :destroy
-	has_many :relationships, foreign_key: "user_id", dependent: :destroy
+    has_and_belongs_to_many :events , dependent: :destroy
+
+    #has_many :event , dependent: :destroy
+    has_many :EventsUsersJoinTables , foreign_key: "user_id", dependent: :destroy
+	#has_many :relationships, foreign_key: "user_id", dependent: :destroy
 	
     def User.new_remember_token
 	  SecureRandom.urlsafe_base64
@@ -43,6 +46,6 @@ class User < ActiveRecord::Base
 end
 
 
- class Event < ActiveRecord::Base
-  has_many : User
-end
+ #class Event < ActiveRecord::Base
+  #has_many : User
+#end
