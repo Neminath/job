@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 	uniqueness: { case_sensitive: false }
 	has_secure_password
 	validates :password, length: { minimum: 6 }
-
+    has_many :event , dependent: :destroy
 	has_many :relationships, foreign_key: "user_id", dependent: :destroy
 	
     def User.new_remember_token
@@ -40,4 +40,9 @@ class User < ActiveRecord::Base
 
 
 
+end
+
+
+ class Event < ActiveRecord::Base
+  has_many : User
 end

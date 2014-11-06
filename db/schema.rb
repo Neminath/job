@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106083347) do
+ActiveRecord::Schema.define(version: 20141106113838) do
 
   create_table "events", force: true do |t|
     t.string   "event"
@@ -24,10 +24,13 @@ ActiveRecord::Schema.define(version: 20141106083347) do
   create_table "relationships", force: true do |t|
     t.integer  "user_id"
     t.integer  "event_id"
-    t.integer  "attend"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "relationships", ["event_id", "user_id"], name: "index_relationships_on_event_id_and_user_id", unique: true
+  add_index "relationships", ["event_id"], name: "index_relationships_on_event_id"
+  add_index "relationships", ["user_id"], name: "index_relationships_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "Email"

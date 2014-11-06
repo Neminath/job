@@ -1,0 +1,18 @@
+class CreateRelationships < ActiveRecord::Migration
+  def change
+    create_table :relationships do |t|
+      t.integer :user_id
+      t.integer :event_id
+
+      t.timestamps
+    end
+    
+      add index:relationships,event_id
+      add  index:relationships,user_id
+      add index:relationships,[:event_id,:user_id], unique:true
+
+
+
+
+  end
+end
