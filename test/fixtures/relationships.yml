@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  eventid: 1
-  userid: 1
-  attedence: 1
+  user_id: 1
+  event_id: 1
+  attend: 1
 
 two:
-  eventid: 1
-  userid: 1
-  attedence: 1
+  user_id: 1
+  event_id: 1
+  attend: 1

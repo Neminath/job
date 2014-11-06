@@ -17,7 +17,7 @@
   <%= @event.evt_date %>
 </p>
 <% if signed_in? %>
-	<% if current_user.attended? %>
+	<% if current_user.attended?(@event) %>
 	<%= link_to "Attent", relationship_create_path %>
 	<%else %>
 		<%= link_to "Unattend", relationship_destroy_path(@event) %>

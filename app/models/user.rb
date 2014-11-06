@@ -8,22 +8,22 @@ class User < ActiveRecord::Base
 	has_secure_password
 	validates :password, length: { minimum: 6 }
 
-	has_many :relationships, foreign_key: "eventid", dependent: :destroy
+	has_many :relationships, foreign_key: "user_id", dependent: :destroy
 	
     def User.new_remember_token
 	  SecureRandom.urlsafe_base64
 	end
 
-	def attend event
-		relationship.create!(:eventid => event.id)
+	def attend (event)
+		relationships.create!(:eventi_d => event.id)
 	end
 
-	def leave event
-		relationship.find(:eventid=> event.id).destroy
+	def leave (event)
+		relationships.find(:event_id=> event.id).destroy
 	end	
 
-	def attended?
-		if relationship.find(:eventid=> event.id).nil?
+	def attended?(event)
+		if relationships.find(:event_id=> event.id).nil?
 			false
 		else
 			true
