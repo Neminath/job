@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20141106155602) do
     t.integer "user_id"
   end
 
-
   create_table "users", force: true do |t|
     t.string   "Email"
     t.string   "Name"
