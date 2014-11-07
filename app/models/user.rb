@@ -13,6 +13,16 @@ class User < ActiveRecord::Base
     #has_many :EventsUsersJoinTables , foreign_key: "user_id", dependent: :destroy
 	#has_many :relationships, foreign_key: "user_id", dependent: :destroy
 	
+    
+   def self.current
+    Thread.current[:user]
+   end
+   def self.current=(user)
+    Thread.current[:user] = user
+   end
+ 
+
+
     def User.new_remember_token
 	  SecureRandom.urlsafe_base64
 	end
@@ -22,22 +32,21 @@ class User < ActiveRecord::Base
 	end
 
 	def attend (event)
-		 
-		#@user = User.first
-		#@user.events << event
-		current_user.events << event 
-		event.users<<current_user
-	end
+	
+	#@user = User.first
+	#@user.events << event
+	User.current.events << event 
+	#$event.users<<current_user
+    end
 
 	def leave (event)
 		#@user = User.first
 		#event.users.destroy_all
-         event.current_user.destroy
-	end	
+         event.users.destroy_all	end	
 
 	def attended?(event)
 		#@user = User.first
-		if current_user.events.first.nil?
+		if User.current.events.first.nil?
 			false
 		else
 			true
@@ -46,15 +55,13 @@ class User < ActiveRecord::Base
 	
   
   	private
+
         def create_remember_token
          self.remember_token = User.digest(User.new_remember_token)
         end
 
-
-
 end
 
 
- #class Event < ActiveRecord::Base
-  #has_many : User
-#end
+
+  

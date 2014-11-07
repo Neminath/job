@@ -88,14 +88,14 @@ class UsersController < ApplicationController
       ##@user = User.first
       #@user.attend @event
     
-      currect_user.attend @event
+      User.current.attend @event
       redirect_to event_path(@event)
   end
 
   def leave
    # @user = User.first
     #@user.leave @event
-    currect_user.leave @event
+    User.current.leave @event
     redirect_to event_path(@event)
   end
 

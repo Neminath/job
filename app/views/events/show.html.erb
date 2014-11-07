@@ -17,7 +17,7 @@
   <%= @event.evt_date %>
 </p>
 <% if signed_in? %>
-	<% if !@user.attended?(@event) %>
+	<% if !Usercurre.attended?(@event) %>
 	 <%= link_to "Attend", attend_path(:id => @event.id), :method =>"post" %>
 	<%else %>
 		<%= link_to "Unattend", leave_path(:id => @event.id) , :method =>"delete"%>
